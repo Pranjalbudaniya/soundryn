@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Soundryn Dev</string>
+    <string name="dev_domain_track_key">Track key: %1$s %2$s</string>
+    <string name="dev_domain_sort_key">Sort key: The Beatles -&gt; %1$s</string>
+    <string name="dev_domain_duration">Duration: 3723000 ms -&gt; %1$s</string>
+    <string name="dev_domain_outcome">Outcome: map(Success(2)) -&gt; %1$s; Failure(NotFound) kept: %2$s</string>
+    <string name="dev_domain_page_limit">Page limit: 0 -&gt; %1$d, 999 -&gt; %2$d</string>
 </resources>
