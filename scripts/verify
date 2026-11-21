@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$REPO_ROOT"
+
+echo "=== (1) Architecture Guard ==="
+./scripts/check-architecture.sh
+
+echo "=== (2) Gradle build, test and lint ==="
+./gradlew assembleDebug testDebugUnitTest :core:domain:test lintDebug
+
+echo "=== (3) Smoke Test ==="
+ADB="adb"
+if ! command -v "$ADB" &>/dev/null; then
+    if [ -n "${ANDROID_HOME:-}" ] && [ -x "$ANDROID_HOME/platform-tools/adb" ]; then
+        ADB="$ANDROID_HOME/platform-tools/adb"
+    elif [ -x "$HOME/Android/Sdk/platform-tools/adb" ]; then
+        ADB="$HOME/Android/Sdk/platform-tools/adb"
+    fi
+fi
+
+RUN_SMOKE=false
+SMOKE_REASON=""
+
+if ! command -v "$ADB" &>/dev/null; then
+    SMOKE_REASON="adb not found"
+else
+    DEVICES_OUTPUT=$(timeout 5 "$ADB" devices 2>/dev/null | sed '1d' | grep -v '^[[:space:]]*$' || true)
+    DEVICE_COUNT=$(echo "$DEVICES_OUTPUT" | grep -v '^[[:space:]]*$' | wc -l || true)
+    if [ "$DEVICE_COUNT" -eq 0 ]; then
+        SMOKE_REASON="Zero devices attached"
+    elif echo "$DEVICES_OUTPUT" | grep -q "unauthorized"; then
+        SMOKE_REASON="Device unauthorized"
+    elif [ "$DEVICE_COUNT" -gt 1 ] && [ -z "${ANDROID_SERIAL:-}" ]; then
+        SMOKE_REASON="Multiple devices attached ($DEVICE_COUNT); set ANDROID_SERIAL"
+    else
+        RUN_SMOKE=true
+    fi
+fi
+
+if [ "$RUN_SMOKE" = true ]; then
+    ./scripts/smoke.sh
+else
+    echo "SMOKE SKIPPED: $SMOKE_REASON"
+fi
+
+echo "VERIFY OK"

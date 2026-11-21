@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$REPO_ROOT"
+
+ADB="adb"
+if ! command -v "$ADB" &>/dev/null; then
+    if [ -n "${ANDROID_HOME:-}" ] && [ -x "$ANDROID_HOME/platform-tools/adb" ]; then
+        ADB="$ANDROID_HOME/platform-tools/adb"
+    elif [ -x "$HOME/Android/Sdk/platform-tools/adb" ]; then
+        ADB="$HOME/Android/Sdk/platform-tools/adb"
+    else
+        echo "Error: adb not found in PATH or Android SDK platform-tools." >&2
+        exit 1
+    fi
+fi
+
+DEVICES_OUTPUT=$("$ADB" devices | sed '1d' | grep -v '^[[:space:]]*$' || true)
+DEVICE_COUNT=$(echo "$DEVICES_OUTPUT" | grep -v '^[[:space:]]*$' | wc -l || true)
+
+if [ "$DEVICE_COUNT" -eq 0 ]; then
+    echo "No Android device detected."
+    echo "Please plug in your phone via USB and enable USB debugging in Developer Options."
+    exit 1
+fi
+
+if echo "$DEVICES_OUTPUT" | grep -q "unauthorized"; then
+    echo "Device detected but unauthorized."
+    echo "Please unlock your phone and tap 'Allow' on the USB debugging authorization prompt."
+    exit 1
+fi
+
+if [ "$DEVICE_COUNT" -gt 1 ] && [ -z "${ANDROID_SERIAL:-}" ]; then
+    echo "Multiple devices attached ($DEVICE_COUNT)."
+    echo "Please specify which device to use by setting ANDROID_SERIAL."
+    exit 1
+fi
+
+echo "Building and installing debug variant..."
+./gradlew :app:installDebug
+
+echo "Launching Soundryn Dev..."
+"$ADB" shell monkey -p com.soundryn.music.dev -c android.intent.category.LAUNCHER 1
+
+echo "INSTALLED Soundryn Dev"
