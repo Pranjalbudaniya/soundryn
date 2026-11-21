@@ -78,4 +78,11 @@ if [ "$SUPPRESS_COUNT" -gt "$BUDGET" ]; then
     exit 1
 fi
 
+# Rule 6: Never fallbackToDestructiveMigration
+DESTRUCTIVE_MATCHES=$(grep -rn --exclude-dir=build --exclude-dir=.gradle "fallbackToDestructiveMigration" --include="*.kt" . 2>/dev/null || true)
+if [ -n "$DESTRUCTIVE_MATCHES" ]; then
+    echo "ARCH VIOLATION: fallbackToDestructiveMigration is strictly forbidden: $DESTRUCTIVE_MATCHES" >&2
+    exit 1
+fi
+
 echo "ARCH OK"

@@ -44,3 +44,6 @@ echo "Launching Soundryn Dev..."
 "$ADB" shell monkey -p com.soundryn.music.dev -c android.intent.category.LAUNCHER 1
 
 echo "INSTALLED Soundryn Dev"
+
+echo "Running smoke test..."
+./scripts/smoke.sh
