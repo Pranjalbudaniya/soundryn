@@ -1,7 +1,7 @@
 # AGENTS.md: Soundryn
 
 Always-on rules for the coding agent. Read on every task. Prompts say "Follow AGENTS.md" and do not repeat these rules.
-Last updated: 2026-11-15. Status legend: ✅ confirmed by owner, 🟡 assumed (owner may veto), ⚠️ unverified.
+Last updated: 2026-11-22. Status legend: ✅ confirmed by owner, 🟡 assumed (owner may veto), ⚠️ unverified.
 
 ## 1. Project
 
@@ -18,7 +18,7 @@ Spec: `docs/SOUNDRYN_PROJECT_MEMORY.md`. Prompt format: `docs/PROMPT_STRUCTURE.m
 6. Write a short plan first. Proceed unless a stop trigger fires.
 7. If the prompt has a Recon section: run it before any edit, save the output with `tee` to `docs/reports/<ID>_recon.txt`, then make the empty marker commit. The marker must be the oldest commit on the branch.
 8. Keep diffs small. Do not refactor unrelated files. Do not add features, settings or screens the prompt does not list. List unrelated issues in the report.
-9. Run the single verify command and make it pass before reporting done. The command is defined by prompt P00 and recorded in the memory file (TBD until then).
+9. Run the single verify command and make it pass before reporting done. The command is ./scripts/verify.
 10. Use the exact report headings from the prompt. A report in another format is incomplete.
 11. Paste code and test bodies from `cat` or `grep -n -A<N>` output. Never retype them. Never write "pasted above".
 12. Use the exact test names from the prompt. Never rename or swap tests. Tests with endless loops use a child scope and a timeout. Run long commands with a timeout.
@@ -34,7 +34,7 @@ Spec: `docs/SOUNDRYN_PROJECT_MEMORY.md`. Prompt format: `docs/PROMPT_STRUCTURE.m
 - Dependency direction: presentation depends on domain; data depends on domain; domain depends on nothing. Presentation never imports data. Only `app` wires them.
 - Every external system (music source, lyrics provider, storage, player engine) sits behind a domain interface.
 - Each screen uses unidirectional flow with State, Event and Effect types (contract in memory §4).
-- Package and module layout, DI framework: per memory §4 (TBD until P00).
+- Package and module layout: per memory §4. DI framework: Hilt (memory D108). Room 3 with KSP, no kapt.
 - Never crash on bad external data. Handle empty, malformed, offline, timeout and permission-denied cases and show them as UI state. No `!!` on external data. Catch, map and surface errors at the data boundary.
 
 ## 4. Design and motion rules
