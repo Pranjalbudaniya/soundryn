@@ -15,25 +15,41 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.soundryn.music.core.domain.LibraryRepository
+import com.soundryn.music.core.domain.PlaylistRepository
+import com.soundryn.music.core.domain.SourceRepository
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 data class DevConsolePanel(
     val title: String,
     val content: @Composable () -> Unit,
 )
 
+@AndroidEntryPoint
 class DevConsoleActivity : ComponentActivity() {
+    @Inject lateinit var library: LibraryRepository
+    @Inject lateinit var playlists: PlaylistRepository
+    @Inject lateinit var sources: SourceRepository
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         val info = DeviceInfo.from(this)
         val lines = deviceInfoLines(info)
+        val injectedCount = listOf(
+            ::library.isInitialized,
+            ::playlists.isInitialized,
+            ::sources.isInitialized
+        ).count { it }
+        val panels = listOf(domainPanel, dataCorePanel(injectedCount))
         setContent {
             MaterialTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    DevConsoleScreen(lines = lines)
+                    DevConsoleScreen(lines = lines, panels = panels)
                 }
             }
         }

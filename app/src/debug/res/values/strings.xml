@@ -6,4 +6,11 @@
     <string name="dev_domain_duration">Duration: 3723000 ms -&gt; %1$s</string>
     <string name="dev_domain_outcome">Outcome: map(Success(2)) -&gt; %1$s; Failure(NotFound) kept: %2$s</string>
     <string name="dev_domain_page_limit">Page limit: 0 -&gt; %1$d, 999 -&gt; %2$d</string>
+
+    <string name="dev_data_running">Running...</string>
+    <string name="dev_data_hilt_injected">Hilt: %1$d repositories injected</string>
+    <string name="dev_data_real_db">Real database file created: %1$s</string>
+    <string name="dev_data_self_test_cascade">Self-test cascade: %1$s</string>
+    <string name="dev_data_self_test_playlist_cascade">Self-test playlist cascade: %1$s</string>
+    <string name="dev_data_self_test_rollback">Self-test rollback: %1$s</string>
 </resources>
