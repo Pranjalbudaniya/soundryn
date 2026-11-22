@@ -15,9 +15,6 @@ package com.soundryn.music.core.data.db
 //       .setDriver(AndroidSQLiteDriver())
 //       .build()
 
-import android.content.Context
-import androidx.room3.Room
-import androidx.sqlite.driver.AndroidSQLiteDriver
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -27,7 +24,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
@@ -39,10 +35,7 @@ class SourceDaoTest {
 
     @Before
     fun setup() {
-        val context: Context = RuntimeEnvironment.getApplication()
-        database = Room.inMemoryDatabaseBuilder(context, SoundrynDatabase::class.java)
-            .setDriver(AndroidSQLiteDriver())
-            .build()
+        database = createTestDatabase()
         dao = database.sourceDao()
     }
 
