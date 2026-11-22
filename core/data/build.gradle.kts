@@ -25,8 +25,10 @@ room3 {
 
 dependencies {
     implementation(project(":core:domain"))
-    implementation(libs.room3.runtime)
+    api(libs.room3.runtime)
     ksp(libs.room3.compiler)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
