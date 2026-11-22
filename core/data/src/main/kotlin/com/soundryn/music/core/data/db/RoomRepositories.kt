@@ -17,8 +17,9 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class RoomLibraryRepository(
+class RoomLibraryRepository @Inject constructor(
     private val trackDao: TrackDao
 ) : LibraryRepository {
 
@@ -78,7 +79,7 @@ class RoomLibraryRepository(
     }
 }
 
-class RoomPlaylistRepository(
+class RoomPlaylistRepository @Inject constructor(
     private val playlistDao: PlaylistDao
 ) : PlaylistRepository {
 
@@ -112,7 +113,7 @@ class RoomPlaylistRepository(
     }
 }
 
-class RoomSourceRepository(
+class RoomSourceRepository @Inject constructor(
     private val sourceDao: SourceDao
 ) : SourceRepository {
 

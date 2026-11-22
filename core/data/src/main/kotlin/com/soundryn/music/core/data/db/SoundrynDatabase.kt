@@ -23,11 +23,11 @@ abstract class SoundrynDatabase : RoomDatabase() {
     abstract fun playlistDao(): PlaylistDao
 }
 
-fun buildSoundrynDatabase(context: Context): SoundrynDatabase {
+fun buildSoundrynDatabase(context: Context, name: String = "soundryn.db"): SoundrynDatabase {
     return Room.databaseBuilder(
         context = context,
         klass = SoundrynDatabase::class.java,
-        name = "soundryn.db"
+        name = name
     )
         .setDriver(AndroidSQLiteDriver())
         .build()
