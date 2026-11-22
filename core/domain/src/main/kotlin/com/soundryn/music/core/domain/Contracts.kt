@@ -24,6 +24,15 @@ interface SourceRepository {
     suspend fun remove(id: SourceId): Outcome<Unit>
 }
 
+interface SettingsRepository {
+    fun observe(setting: Setting.Toggle): Flow<Boolean>
+    fun observe(setting: Setting.Range): Flow<Float>
+    suspend fun set(setting: Setting.Toggle, value: Boolean): Outcome<Unit>
+    suspend fun set(setting: Setting.Range, value: Float): Outcome<Unit>
+    suspend fun reset(setting: Setting): Outcome<Unit>
+    suspend fun resetAll(): Outcome<Unit>
+}
+
 enum class SourceCapability {
     LIST_TRACKS,
     SEARCH,
