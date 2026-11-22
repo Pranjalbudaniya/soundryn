@@ -25,6 +25,7 @@ room3 {
 
 dependencies {
     implementation(project(":core:domain"))
+    implementation(libs.datastore.preferences)
     api(libs.room3.runtime)
     ksp(libs.room3.compiler)
     implementation(libs.hilt.android)
