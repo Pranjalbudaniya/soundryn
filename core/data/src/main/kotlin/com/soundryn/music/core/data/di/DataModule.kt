@@ -11,7 +11,11 @@ import com.soundryn.music.core.data.db.TrackDao
 import com.soundryn.music.core.data.db.buildSoundrynDatabase
 import com.soundryn.music.core.domain.LibraryRepository
 import com.soundryn.music.core.domain.PlaylistRepository
+import com.soundryn.music.core.domain.SettingsRepository
 import com.soundryn.music.core.domain.SourceRepository
+import androidx.datastore.preferences.preferencesDataStoreFile
+import com.soundryn.music.core.data.settings.DataStoreSettingsRepository
+import com.soundryn.music.core.data.settings.createSettingsDataStore
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -19,6 +23,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -48,4 +55,13 @@ object DataProviders {
 
     @Provides
     fun sourceDao(db: SoundrynDatabase): SourceDao = db.sourceDao()
+
+    @Provides
+    @Singleton
+    fun settingsRepository(@ApplicationContext context: Context): SettingsRepository {
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+        val file = context.preferencesDataStoreFile("settings")
+        val store = createSettingsDataStore(scope, file)
+        return DataStoreSettingsRepository(store)
+    }
 }
