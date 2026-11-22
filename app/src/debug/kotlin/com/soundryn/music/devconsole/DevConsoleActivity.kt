@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -17,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.soundryn.music.core.domain.LibraryRepository
 import com.soundryn.music.core.domain.PlaylistRepository
+import com.soundryn.music.core.domain.SettingsRepository
 import com.soundryn.music.core.domain.SourceRepository
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -31,6 +34,7 @@ class DevConsoleActivity : ComponentActivity() {
     @Inject lateinit var library: LibraryRepository
     @Inject lateinit var playlists: PlaylistRepository
     @Inject lateinit var sources: SourceRepository
+    @Inject lateinit var settings: SettingsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +46,7 @@ class DevConsoleActivity : ComponentActivity() {
             ::playlists.isInitialized,
             ::sources.isInitialized
         ).count { it }
-        val panels = listOf(domainPanel, dataCorePanel(injectedCount))
+        val panels = listOf(domainPanel, dataCorePanel(injectedCount), settingsPanel(settings))
         setContent {
             MaterialTheme {
                 Surface(
@@ -65,6 +69,7 @@ fun DevConsoleScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .safeDrawingPadding()
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
