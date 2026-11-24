@@ -78,21 +78,9 @@ object DesignResolver {
             }
         }
 
-        // Type resolution
-        val resolvedType = mutableMapOf<String, Map<String, Float>>()
-        for ((role, baseFields) in base.type) {
-            val roleMap = mutableMapOf<String, Float>()
-            for (field in baseFields.keys) {
-                for (layer in search) {
-                    val value = layer.type[role]?.get(field)
-                    if (value != null) {
-                        roleMap[field] = value
-                        break
-                    }
-                }
-            }
-            resolvedType[role] = roleMap
-        }
+        // Type and Motion resolution
+        val resolvedType = resolveNestedFloats(base.type, search) { it.type }
+        val resolvedMotion = resolveNestedFloats(base.motion, search) { it.motion }
 
         // Components resolution
         val resolvedComponents = mutableMapOf<String, Map<String, ComponentValue>>()
@@ -119,7 +107,30 @@ object DesignResolver {
             elevation = resolvedElevation,
             blur = resolvedBlur,
             type = resolvedType,
-            components = resolvedComponents
+            components = resolvedComponents,
+            motion = resolvedMotion
         )
+    }
+
+    private fun resolveNestedFloats(
+        baseMap: Map<String, Map<String, Float>>,
+        search: List<DesignDefinition>,
+        selector: (DesignDefinition) -> Map<String, Map<String, Float>>
+    ): Map<String, Map<String, Float>> {
+        val resolved = mutableMapOf<String, Map<String, Float>>()
+        for ((role, baseFields) in baseMap) {
+            val roleMap = mutableMapOf<String, Float>()
+            for (field in baseFields.keys) {
+                for (layer in search) {
+                    val value = selector(layer)[role]?.get(field)
+                    if (value != null) {
+                        roleMap[field] = value
+                        break
+                    }
+                }
+            }
+            resolved[role] = roleMap
+        }
+        return resolved
     }
 }

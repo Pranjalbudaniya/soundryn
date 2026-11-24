@@ -23,11 +23,15 @@ object DesignParser {
 
     private val KNOWN_ROOT_KEYS = setOf(
         "schemaVersion", "id", "name", "color", "shape",
-        "spacing", "elevation", "type", "blur", "components"
+        "spacing", "elevation", "type", "blur", "components", "motion"
     )
     private val KNOWN_COLOR_VARIANTS = setOf("light", "dark", "amoled")
     private val KNOWN_BLUR_PROPERTIES = setOf("maxRadius", "surfaceAlpha")
     private val KNOWN_TYPE_FIELDS = setOf("size", "lineHeight", "weight", "letterSpacing")
+    private val MOTION_FIELD_RANGES = mapOf(
+        "stiffness" to (10f to 20000f),
+        "dampingRatio" to (0.1f to 2.0f)
+    )
 
     fun parse(text: String, base: DesignDefinition? = null): ParseResult {
         if (text.length > MAX_TEXT_LENGTH) {
@@ -368,6 +372,13 @@ object DesignParser {
             }
         }
 
+        // Motion section
+        val motionMap = if ("motion" in root) {
+            parseMotionSection(root["motion"], base, ::warn)
+        } else {
+            emptyMap()
+        }
+
         val definition = DesignDefinition(
             schemaVersion = schemaVersion,
             id = id,
@@ -378,10 +389,55 @@ object DesignParser {
             elevation = elevationMap,
             blur = blurMap,
             type = typeMap,
-            components = componentsMap
+            components = componentsMap,
+            motion = motionMap
         )
 
         return ParseResult.Success(definition, warnings)
+    }
+
+    private fun parseMotionSection(
+        element: JsonElement?,
+        base: DesignDefinition?,
+        warn: (String, String) -> Unit
+    ): Map<String, Map<String, Float>> {
+        if (element !is JsonObject) {
+            warn("motion", "motion must be an object")
+            return emptyMap()
+        }
+        val motionMap = mutableMapOf<String, Map<String, Float>>()
+        for ((role, roleElem) in element) {
+            if (!IDENTIFIER_REGEX.matches(role)) {
+                warn("motion.$role", "invalid motion role: $role")
+                continue
+            }
+            if (base != null && !base.motion.containsKey(role)) {
+                warn("motion.$role", "unknown token: $role")
+                continue
+            }
+            if (roleElem !is JsonObject) {
+                warn("motion.$role", "motion.$role must be an object")
+                continue
+            }
+            val roleFields = mutableMapOf<String, Float>()
+            for ((field, valElem) in roleElem) {
+                val bounds = MOTION_FIELD_RANGES[field]
+                if (bounds == null) {
+                    warn("motion.$role.$field", "unknown motion field: $field")
+                    continue
+                }
+                val num = parseNumber(valElem, bounds.first, bounds.second, wholeNumber = false)
+                if (num != null) {
+                    roleFields[field] = num
+                } else {
+                    warn("motion.$role.$field", "invalid motion $field")
+                }
+            }
+            if (roleFields.isNotEmpty()) {
+                motionMap[role] = roleFields
+            }
+        }
+        return motionMap
     }
 
     private fun parseColorVariant(

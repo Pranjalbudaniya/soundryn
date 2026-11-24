@@ -18,7 +18,8 @@ data class DesignDefinition(
     val elevation: Map<String, Float> = emptyMap(),
     val blur: Map<String, Float> = emptyMap(),
     val type: Map<String, Map<String, Float>> = emptyMap(),
-    val components: Map<String, Map<String, ComponentValue>> = emptyMap()
+    val components: Map<String, Map<String, ComponentValue>> = emptyMap(),
+    val motion: Map<String, Map<String, Float>> = emptyMap()
 )
 
 data class ResolvedDesign(
@@ -28,7 +29,8 @@ data class ResolvedDesign(
     val elevation: Map<String, Float>,
     val blur: Map<String, Float>,
     val type: Map<String, Map<String, Float>>,
-    val components: Map<String, Map<String, ComponentValue>>
+    val components: Map<String, Map<String, ComponentValue>>,
+    val motion: Map<String, Map<String, Float>> = emptyMap()
 )
 
 data class DesignIssue(val path: String, val message: String)

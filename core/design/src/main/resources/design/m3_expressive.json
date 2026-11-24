@@ -322,6 +322,21 @@
       "letterSpacing": 0.5
     }
   },
+  "motion": {
+    "spatialFast": { "stiffness": 800.0, "dampingRatio": 0.6 },
+    "spatialDefault": { "stiffness": 380.0, "dampingRatio": 0.8 },
+    "spatialSlow": { "stiffness": 200.0, "dampingRatio": 0.8 },
+    "effectsFast": { "stiffness": 3800.0, "dampingRatio": 1.0 },
+    "effectsDefault": { "stiffness": 1600.0, "dampingRatio": 1.0 },
+    "effectsSlow": { "stiffness": 800.0, "dampingRatio": 1.0 },
+    "press": { "stiffness": 1400.0, "dampingRatio": 0.6 },
+    "dragRelease": { "stiffness": 380.0, "dampingRatio": 0.8 },
+    "expand": { "stiffness": 300.0, "dampingRatio": 0.75 },
+    "containerTransform": { "stiffness": 380.0, "dampingRatio": 0.9 },
+    "listReorder": { "stiffness": 800.0, "dampingRatio": 0.75 },
+    "sliderPress": { "stiffness": 500.0, "dampingRatio": 0.7 },
+    "reduced": { "stiffness": 1500.0, "dampingRatio": 1.0 }
+  },
   "blur": {
     "maxRadius": 24.0,
     "surfaceAlpha": 1.0
