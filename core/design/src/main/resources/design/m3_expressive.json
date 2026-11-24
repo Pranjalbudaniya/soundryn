@@ -1,0 +1,329 @@
+{
+  "schemaVersion": 1,
+  "id": "m3-expressive",
+  "name": "Material 3 Expressive",
+  "color": {
+    "light": {
+      "primary": "#FF6750A4",
+      "onPrimary": "#FFFFFFFF",
+      "primaryContainer": "#FFEADDFF",
+      "onPrimaryContainer": "#FF4F378B",
+      "inversePrimary": "#FFD0BCFF",
+      "secondary": "#FF625B71",
+      "onSecondary": "#FFFFFFFF",
+      "secondaryContainer": "#FFE8DEF8",
+      "onSecondaryContainer": "#FF4A4458",
+      "tertiary": "#FF7D5260",
+      "onTertiary": "#FFFFFFFF",
+      "tertiaryContainer": "#FFFFD8E4",
+      "onTertiaryContainer": "#FF633B48",
+      "background": "#FFFEF7FF",
+      "onBackground": "#FF1D1B20",
+      "surface": "#FFFEF7FF",
+      "onSurface": "#FF1D1B20",
+      "surfaceVariant": "#FFE7E0EC",
+      "onSurfaceVariant": "#FF49454F",
+      "surfaceTint": "#FF6750A4",
+      "inverseSurface": "#FF322F35",
+      "inverseOnSurface": "#FFF5EFF7",
+      "error": "#FFB3261E",
+      "onError": "#FFFFFFFF",
+      "errorContainer": "#FFF9DEDC",
+      "onErrorContainer": "#FF8C1D18",
+      "outline": "#FF79747E",
+      "outlineVariant": "#FFCAC4D0",
+      "scrim": "#FF000000",
+      "surfaceBright": "#FFFEF7FF",
+      "surfaceDim": "#FFDED8E1",
+      "surfaceContainer": "#FFF3EDF7",
+      "surfaceContainerHigh": "#FFECE6F0",
+      "surfaceContainerHighest": "#FFE6E0E9",
+      "surfaceContainerLow": "#FFF7F2FA",
+      "surfaceContainerLowest": "#FFFFFFFF",
+      "primaryFixed": "#FFEADDFF",
+      "primaryFixedDim": "#FFD0BCFF",
+      "onPrimaryFixed": "#FF21005D",
+      "onPrimaryFixedVariant": "#FF4F378B",
+      "secondaryFixed": "#FFE8DEF8",
+      "secondaryFixedDim": "#FFCCC2DC",
+      "onSecondaryFixed": "#FF1D192B",
+      "onSecondaryFixedVariant": "#FF4A4458",
+      "tertiaryFixed": "#FFFFD8E4",
+      "tertiaryFixedDim": "#FFEFB8C8",
+      "onTertiaryFixed": "#FF31111D",
+      "onTertiaryFixedVariant": "#FF633B48"
+    },
+    "dark": {
+      "primary": "#FFD0BCFF",
+      "onPrimary": "#FF381E72",
+      "primaryContainer": "#FF4F378B",
+      "onPrimaryContainer": "#FFEADDFF",
+      "inversePrimary": "#FF6750A4",
+      "secondary": "#FFCCC2DC",
+      "onSecondary": "#FF332D41",
+      "secondaryContainer": "#FF4A4458",
+      "onSecondaryContainer": "#FFE8DEF8",
+      "tertiary": "#FFEFB8C8",
+      "onTertiary": "#FF492532",
+      "tertiaryContainer": "#FF633B48",
+      "onTertiaryContainer": "#FFFFD8E4",
+      "background": "#FF141218",
+      "onBackground": "#FFE6E0E9",
+      "surface": "#FF141218",
+      "onSurface": "#FFE6E0E9",
+      "surfaceVariant": "#FF49454F",
+      "onSurfaceVariant": "#FFCAC4D0",
+      "surfaceTint": "#FFD0BCFF",
+      "inverseSurface": "#FFE6E0E9",
+      "inverseOnSurface": "#FF322F35",
+      "error": "#FFF2B8B5",
+      "onError": "#FF601410",
+      "errorContainer": "#FF8C1D18",
+      "onErrorContainer": "#FFF9DEDC",
+      "outline": "#FF938F99",
+      "outlineVariant": "#FF49454F",
+      "scrim": "#FF000000",
+      "surfaceBright": "#FF3B383E",
+      "surfaceDim": "#FF141218",
+      "surfaceContainer": "#FF211F26",
+      "surfaceContainerHigh": "#FF2B2930",
+      "surfaceContainerHighest": "#FF36343B",
+      "surfaceContainerLow": "#FF1D1B20",
+      "surfaceContainerLowest": "#FF0F0D13",
+      "primaryFixed": "#FFEADDFF",
+      "primaryFixedDim": "#FFD0BCFF",
+      "onPrimaryFixed": "#FF21005D",
+      "onPrimaryFixedVariant": "#FF4F378B",
+      "secondaryFixed": "#FFE8DEF8",
+      "secondaryFixedDim": "#FFCCC2DC",
+      "onSecondaryFixed": "#FF1D192B",
+      "onSecondaryFixedVariant": "#FF4A4458",
+      "tertiaryFixed": "#FFFFD8E4",
+      "tertiaryFixedDim": "#FFEFB8C8",
+      "onTertiaryFixed": "#FF31111D",
+      "onTertiaryFixedVariant": "#FF633B48"
+    },
+    "amoled": {
+      "background": "#FF000000",
+      "surface": "#FF000000",
+      "surfaceDim": "#FF000000",
+      "surfaceContainerLowest": "#FF000000"
+    }
+  },
+  "shape": {
+    "none": 0.0,
+    "full": 1000.0,
+    "extraSmall": 4.0,
+    "small": 8.0,
+    "medium": 12.0,
+    "large": 16.0,
+    "extraLarge": 28.0,
+    "largeIncreased": 20.0,
+    "extraLargeIncreased": 32.0,
+    "extraExtraLarge": 48.0
+  },
+  "spacing": {
+    "xxs": 2.0,
+    "xs": 4.0,
+    "s": 8.0,
+    "m": 12.0,
+    "l": 16.0,
+    "xl": 24.0,
+    "xxl": 32.0,
+    "xxxl": 48.0
+  },
+  "elevation": {
+    "level0": 0.0,
+    "level1": 1.0,
+    "level2": 3.0,
+    "level3": 6.0,
+    "level4": 8.0,
+    "level5": 12.0
+  },
+  "type": {
+    "displayLarge": {
+      "size": 57.0,
+      "lineHeight": 64.0,
+      "weight": 400.0,
+      "letterSpacing": -0.2
+    },
+    "displayMedium": {
+      "size": 45.0,
+      "lineHeight": 52.0,
+      "weight": 400.0,
+      "letterSpacing": 0.0
+    },
+    "displaySmall": {
+      "size": 36.0,
+      "lineHeight": 44.0,
+      "weight": 400.0,
+      "letterSpacing": 0.0
+    },
+    "headlineLarge": {
+      "size": 32.0,
+      "lineHeight": 40.0,
+      "weight": 400.0,
+      "letterSpacing": 0.0
+    },
+    "headlineMedium": {
+      "size": 28.0,
+      "lineHeight": 36.0,
+      "weight": 400.0,
+      "letterSpacing": 0.0
+    },
+    "headlineSmall": {
+      "size": 24.0,
+      "lineHeight": 32.0,
+      "weight": 400.0,
+      "letterSpacing": 0.0
+    },
+    "titleLarge": {
+      "size": 22.0,
+      "lineHeight": 28.0,
+      "weight": 400.0,
+      "letterSpacing": 0.0
+    },
+    "titleMedium": {
+      "size": 16.0,
+      "lineHeight": 24.0,
+      "weight": 500.0,
+      "letterSpacing": 0.2
+    },
+    "titleSmall": {
+      "size": 14.0,
+      "lineHeight": 20.0,
+      "weight": 500.0,
+      "letterSpacing": 0.1
+    },
+    "bodyLarge": {
+      "size": 16.0,
+      "lineHeight": 24.0,
+      "weight": 400.0,
+      "letterSpacing": 0.5
+    },
+    "bodyMedium": {
+      "size": 14.0,
+      "lineHeight": 20.0,
+      "weight": 400.0,
+      "letterSpacing": 0.2
+    },
+    "bodySmall": {
+      "size": 12.0,
+      "lineHeight": 16.0,
+      "weight": 400.0,
+      "letterSpacing": 0.4
+    },
+    "labelLarge": {
+      "size": 14.0,
+      "lineHeight": 20.0,
+      "weight": 500.0,
+      "letterSpacing": 0.1
+    },
+    "labelMedium": {
+      "size": 12.0,
+      "lineHeight": 16.0,
+      "weight": 500.0,
+      "letterSpacing": 0.5
+    },
+    "labelSmall": {
+      "size": 11.0,
+      "lineHeight": 16.0,
+      "weight": 500.0,
+      "letterSpacing": 0.5
+    },
+    "displayLargeEmphasized": {
+      "size": 57.0,
+      "lineHeight": 64.0,
+      "weight": 400.0,
+      "letterSpacing": -0.2
+    },
+    "displayMediumEmphasized": {
+      "size": 45.0,
+      "lineHeight": 52.0,
+      "weight": 400.0,
+      "letterSpacing": 0.0
+    },
+    "displaySmallEmphasized": {
+      "size": 36.0,
+      "lineHeight": 44.0,
+      "weight": 400.0,
+      "letterSpacing": 0.0
+    },
+    "headlineLargeEmphasized": {
+      "size": 32.0,
+      "lineHeight": 40.0,
+      "weight": 400.0,
+      "letterSpacing": 0.0
+    },
+    "headlineMediumEmphasized": {
+      "size": 28.0,
+      "lineHeight": 36.0,
+      "weight": 400.0,
+      "letterSpacing": 0.0
+    },
+    "headlineSmallEmphasized": {
+      "size": 24.0,
+      "lineHeight": 32.0,
+      "weight": 400.0,
+      "letterSpacing": 0.0
+    },
+    "titleLargeEmphasized": {
+      "size": 22.0,
+      "lineHeight": 28.0,
+      "weight": 400.0,
+      "letterSpacing": 0.0
+    },
+    "titleMediumEmphasized": {
+      "size": 16.0,
+      "lineHeight": 24.0,
+      "weight": 500.0,
+      "letterSpacing": 0.2
+    },
+    "titleSmallEmphasized": {
+      "size": 14.0,
+      "lineHeight": 20.0,
+      "weight": 500.0,
+      "letterSpacing": 0.1
+    },
+    "bodyLargeEmphasized": {
+      "size": 16.0,
+      "lineHeight": 24.0,
+      "weight": 400.0,
+      "letterSpacing": 0.5
+    },
+    "bodyMediumEmphasized": {
+      "size": 14.0,
+      "lineHeight": 20.0,
+      "weight": 400.0,
+      "letterSpacing": 0.2
+    },
+    "bodySmallEmphasized": {
+      "size": 12.0,
+      "lineHeight": 16.0,
+      "weight": 400.0,
+      "letterSpacing": 0.4
+    },
+    "labelLargeEmphasized": {
+      "size": 14.0,
+      "lineHeight": 20.0,
+      "weight": 500.0,
+      "letterSpacing": 0.1
+    },
+    "labelMediumEmphasized": {
+      "size": 12.0,
+      "lineHeight": 16.0,
+      "weight": 500.0,
+      "letterSpacing": 0.5
+    },
+    "labelSmallEmphasized": {
+      "size": 11.0,
+      "lineHeight": 16.0,
+      "weight": 500.0,
+      "letterSpacing": 0.5
+    }
+  },
+  "blur": {
+    "maxRadius": 24.0,
+    "surfaceAlpha": 1.0
+  }
+}

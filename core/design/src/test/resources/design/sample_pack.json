@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "id": "sample-pink",
+  "name": "Sample pink",
+  "color": {
+    "light": { "primary": "#B4236B", "onPrimary": "#FFFFFF" },
+    "dark": { "primary": "#FFFFB0CB" }
+  },
+  "shape": { "medium": 20 },
+  "type": { "bodyLarge": { "size": 18 } },
+  "components": { "button": { "cornerRadius": 28, "filled": true } },
+  "futureThing": { "x": 1 }
+}
