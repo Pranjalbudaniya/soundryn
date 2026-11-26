@@ -23,6 +23,7 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix = ".dev"
+            isDebuggable = !project.hasProperty("soundryn.fast")
         }
         release {
             isMinifyEnabled = false

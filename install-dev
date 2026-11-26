@@ -4,6 +4,19 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$REPO_ROOT"
 
+FAST=false
+if [ "$#" -gt 1 ]; then
+    echo "Usage: ./install-dev [--fast]" >&2
+    exit 1
+elif [ "$#" -eq 1 ]; then
+    if [ "$1" = "--fast" ]; then
+        FAST=true
+    else
+        echo "Usage: ./install-dev [--fast]" >&2
+        exit 1
+    fi
+fi
+
 ADB="adb"
 if ! command -v "$ADB" &>/dev/null; then
     if [ -n "${ANDROID_HOME:-}" ] && [ -x "$ANDROID_HOME/platform-tools/adb" ]; then
@@ -37,8 +50,13 @@ if [ "$DEVICE_COUNT" -gt 1 ] && [ -z "${ANDROID_SERIAL:-}" ]; then
     exit 1
 fi
 
-echo "Building and installing debug variant..."
-./gradlew :app:installDebug
+if [ "$FAST" = true ]; then
+    echo "Installing FAST (non-debuggable) variant..."
+    ./gradlew :app:installDebug -Psoundryn.fast=true
+else
+    echo "Building and installing debug variant..."
+    ./gradlew :app:installDebug
+fi
 
 echo "Launching Soundryn Dev..."
 "$ADB" shell monkey -p com.soundryn.music.dev -c android.intent.category.LAUNCHER 1
