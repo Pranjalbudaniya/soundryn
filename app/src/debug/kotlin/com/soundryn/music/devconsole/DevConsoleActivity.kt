@@ -46,7 +46,14 @@ class DevConsoleActivity : ComponentActivity() {
             ::playlists.isInitialized,
             ::sources.isInitialized
         ).count { it }
-        val panels = listOf(domainPanel, dataCorePanel(injectedCount), settingsPanel(settings), designPanel(), motionPanel(settings))
+        val panels = listOf(
+            domainPanel,
+            dataCorePanel(injectedCount),
+            settingsPanel(settings),
+            designPanel(),
+            motionPanel(settings),
+            hapticsBlurPanel(settings),
+        )
         setContent {
             MaterialTheme {
                 Surface(
