@@ -78,9 +78,10 @@ object DesignResolver {
             }
         }
 
-        // Type and Motion resolution
+        // Type, Motion, and Haptics resolution
         val resolvedType = resolveNestedFloats(base.type, search) { it.type }
         val resolvedMotion = resolveNestedFloats(base.motion, search) { it.motion }
+        val resolvedHaptics = resolveHaptics(base.haptics, search)
 
         // Components resolution
         val resolvedComponents = mutableMapOf<String, Map<String, ComponentValue>>()
@@ -108,8 +109,26 @@ object DesignResolver {
             blur = resolvedBlur,
             type = resolvedType,
             components = resolvedComponents,
-            motion = resolvedMotion
+            motion = resolvedMotion,
+            haptics = resolvedHaptics
         )
+    }
+
+    private fun resolveHaptics(
+        baseMap: Map<String, String>,
+        search: List<DesignDefinition>
+    ): Map<String, String> {
+        val resolved = mutableMapOf<String, String>()
+        for (role in baseMap.keys) {
+            for (layer in search) {
+                val value = layer.haptics[role]
+                if (value != null) {
+                    resolved[role] = value
+                    break
+                }
+            }
+        }
+        return resolved
     }
 
     private fun resolveNestedFloats(

@@ -337,6 +337,18 @@
     "sliderPress": { "stiffness": 500.0, "dampingRatio": 0.7 },
     "reduced": { "stiffness": 1500.0, "dampingRatio": 1.0 }
   },
+  "haptics": {
+    "tap": "virtualKey",
+    "toggleOn": "toggleOn",
+    "toggleOff": "toggleOff",
+    "longPress": "longPress",
+    "confirm": "confirm",
+    "reject": "reject",
+    "tick": "segmentTick",
+    "tickFast": "segmentFrequentTick",
+    "threshold": "gestureThresholdActivate",
+    "gestureEnd": "gestureEnd"
+  },
   "blur": {
     "maxRadius": 24.0,
     "surfaceAlpha": 1.0

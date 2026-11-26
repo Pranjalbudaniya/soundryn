@@ -1,5 +1,6 @@
 package com.soundryn.music.core.design.language
 
+import com.soundryn.music.core.design.haptics.HapticKind
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonNull
@@ -23,7 +24,7 @@ object DesignParser {
 
     private val KNOWN_ROOT_KEYS = setOf(
         "schemaVersion", "id", "name", "color", "shape",
-        "spacing", "elevation", "type", "blur", "components", "motion"
+        "spacing", "elevation", "type", "blur", "components", "motion", "haptics"
     )
     private val KNOWN_COLOR_VARIANTS = setOf("light", "dark", "amoled")
     private val KNOWN_BLUR_PROPERTIES = setOf("maxRadius", "surfaceAlpha")
@@ -379,6 +380,13 @@ object DesignParser {
             emptyMap()
         }
 
+        // Haptics section
+        val hapticsMap = if ("haptics" in root) {
+            parseHapticsSection(root["haptics"], base, ::warn)
+        } else {
+            emptyMap()
+        }
+
         val definition = DesignDefinition(
             schemaVersion = schemaVersion,
             id = id,
@@ -390,10 +398,44 @@ object DesignParser {
             blur = blurMap,
             type = typeMap,
             components = componentsMap,
-            motion = motionMap
+            motion = motionMap,
+            haptics = hapticsMap
         )
 
         return ParseResult.Success(definition, warnings)
+    }
+
+    private fun parseHapticsSection(
+        element: JsonElement?,
+        base: DesignDefinition?,
+        warn: (String, String) -> Unit
+    ): Map<String, String> {
+        if (element !is JsonObject) {
+            warn("haptics", "haptics must be an object")
+            return emptyMap()
+        }
+        val hapticsMap = mutableMapOf<String, String>()
+        for ((role, kindElem) in element) {
+            if (!IDENTIFIER_REGEX.matches(role)) {
+                warn("haptics.$role", "invalid haptic role: $role")
+                continue
+            }
+            if (base != null && !base.haptics.containsKey(role)) {
+                warn("haptics.$role", "unknown token: $role")
+                continue
+            }
+            if (kindElem !is JsonPrimitive || !kindElem.isString) {
+                warn("haptics.$role", "haptic kind must be a string")
+                continue
+            }
+            val token = kindElem.content
+            if (HapticKind.fromToken(token) == null) {
+                warn("haptics.$role", "unknown haptic kind: $token")
+                continue
+            }
+            hapticsMap[role] = token
+        }
+        return hapticsMap
     }
 
     private fun parseMotionSection(
