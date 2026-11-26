@@ -28,6 +28,7 @@ dependencies {
     implementation(platform(libs.compose.bom))
     api(libs.compose.animation.core)
     implementation(libs.compose.runtime)
+    implementation(libs.compose.ui)
     implementation(libs.kotlinx.coroutines.core)
 
     testImplementation(libs.junit)
